@@ -16,16 +16,27 @@ export const FetchCandyMachine: FC = () => {
 
   const fetchCandyMachine = async () => {
     try {
-      const candyMachine = await metaplex
-        .candyMachinesV2()
-        .findByAddress({ address: new PublicKey(candyMachineAddress) })
-      console.log('Candy Machine:', candyMachine); // Log the result
-      setCandyMachineData(candyMachine)
+      let candyMachine;
+      try {
+        // First, try fetching the CandyMachineV2
+        candyMachine = await metaplex
+          .candyMachinesV2()
+          .findByAddress({address: new PublicKey(candyMachineAddress)});
+        console.log('Candy Machine V2:', candyMachine);
+      } catch (e) {
+        console.log('Not a Candy Machine V2, trying CandyMachine');
+        // If that fails, try fetching the CandyMachine
+        candyMachine = await metaplex
+          .candyMachines()
+          .findByAddress({ address: new PublicKey(candyMachineAddress) });
+        console.log('Candy Machine:', candyMachine);
+      }
+      setCandyMachineData(candyMachine);
     } catch (e) {
-      console.error('Error fetching Candy Machine:', e); // Log the error
-      alert("Please submit a valid CMv2 address.")
+      console.error('Error fetching Candy Machine:', e);
+      alert("Please submit a valid CMv2 address.");
     }
-  }
+  };
   useEffect(() => {
     if (candyMachineData) {
       console.log('Candy Machine Data:', candyMachineData); // Log the candyMachineData
@@ -39,7 +50,7 @@ export const FetchCandyMachine: FC = () => {
       const pageItems = candyMachineData.items.slice(
         (page - 1) * perPage,
         page * perPage
-      )
+     )
   
       let nftData = []
       for (let i = 0; i < pageItems.length; i++) {
@@ -97,7 +108,8 @@ export const FetchCandyMachine: FC = () => {
             {pageItems.map((nft, index) => (
               <div key={index}>
                 <ul>{nft.name}</ul>
-                <Image src={nft.image} alt={nft.name} />
+                <Image src={nft.image} 
+                alt={nft.name} width={500} height={300} />
               </div>
             ))}
           </div>
