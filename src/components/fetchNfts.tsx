@@ -29,6 +29,7 @@ export const FetchNft: FC = () => {
 
   useEffect(() => {
     fetchNfts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet, currentPage]);
 
   const totalPages = Math.ceil(nftData.length / itemsPerPage);
