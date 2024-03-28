@@ -20,7 +20,7 @@ npm install
 # or
 yarn install
 ```
-
+## DO NOT I REPEAT DO NOT RUN NPM UPDATE there is a breaking change somewhere as of this upload 3-28-2024
 ## Build and Run
 
 Next, run the development server:

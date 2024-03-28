@@ -1,18 +1,17 @@
 import type { NextPage } from "next"
 import Head from "next/head"
+import { DropPageView } from "../views/drops"
 
-import { GalleryView } from "views/gallery"
-
-const Gallery: NextPage = (props) => {
+const Drops: NextPage = (props) => {
   return (
     <div>
       <Head>
-        <title>Your NFTs</title>
+        <title>Drops</title>
         <meta name="description" content="Basic Functionality" />
       </Head>
-      <GalleryView />
+      <DropPageView />
     </div>
   )
 }
 
-export default Gallery
+export default Drops
